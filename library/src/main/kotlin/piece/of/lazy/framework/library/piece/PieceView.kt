@@ -1,11 +1,11 @@
-package piece.of.lazy.framework.library.base
+package piece.of.lazy.framework.library.piece
 
 import android.content.Context
 
 /**
  * Created by piece.of.lazy
  */
-abstract class LazyOfViewItem<I> : LazyOfView() {
+abstract class PieceView<I> : PieceFrame() {
     var item: I? = null
         private set(value) {
             field = value

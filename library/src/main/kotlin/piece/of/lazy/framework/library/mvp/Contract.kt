@@ -2,7 +2,7 @@ package piece.of.lazy.framework.library.mvp
 
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
-import piece.of.lazy.framework.library.base.LazyOfView
+import piece.of.lazy.framework.library.piece.PieceFrame
 
 /**
  * Created by piece.of.lazy
@@ -17,8 +17,8 @@ abstract class Contract<V: View<P>, P: Presenter<V>> constructor(private val tag
         attach(activity)
 
         view?.let {
-            if(it is LazyOfView) {
-                (it as LazyOfView).makeView(activity, parent)
+            if(it is PieceFrame) {
+                (it as PieceFrame).makeView(activity, parent)
             }
             presenter?.onViewAttach(it)
         }
@@ -29,8 +29,8 @@ abstract class Contract<V: View<P>, P: Presenter<V>> constructor(private val tag
         attach(activity)
 
         view?.let {
-            if(it is LazyOfView) {
-                (it as LazyOfView).bindView(activity, bindView)
+            if(it is PieceFrame) {
+                (it as PieceFrame).bindView(activity, bindView)
             }
             presenter?.onViewAttach(it)
         }

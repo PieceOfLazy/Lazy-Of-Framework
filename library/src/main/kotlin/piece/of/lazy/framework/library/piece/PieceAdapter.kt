@@ -1,4 +1,4 @@
-package piece.of.lazy.framework.library.base
+package piece.of.lazy.framework.library.piece
 
 import android.content.Context
 import android.graphics.Color
@@ -14,21 +14,21 @@ import android.widget.TextView
  * Created by zpdl
  */
 
-abstract class LazyOfAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class PieceAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    private val holderInterfaces: SparseArray<LazyOfHolder<*,*>> = SparseArray()
+    private val holderInterfaces: SparseArray<PieceHolder<*,*>> = SparseArray()
 
     init {
         this.setHasStableIds(true)
         this.onBindLazyOfHolder(holderInterfaces)
     }
 
-    protected abstract fun onBindLazyOfHolder(list: MutableList<LazyOfHolder<*,*>>)
+    protected abstract fun onBindLazyOfHolder(list: MutableList<PieceHolder<*,*>>)
 
     abstract fun getBindItem(position: Int): Any?
 
-    private fun onBindLazyOfHolder(list: SparseArray<LazyOfHolder<*,*>>) {
-        val bindHolder = mutableListOf<LazyOfHolder<*,*>>()
+    private fun onBindLazyOfHolder(list: SparseArray<PieceHolder<*,*>>) {
+        val bindHolder = mutableListOf<PieceHolder<*,*>>()
         onBindLazyOfHolder(bindHolder)
 
         for (holder in bindHolder) {
@@ -49,7 +49,7 @@ abstract class LazyOfAdapter(private val context: Context) : RecyclerView.Adapte
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val holderInterface: LazyOfHolder<*,*>? = holderInterfaces.get(viewType)
+        val holderInterface: PieceHolder<*,*>? = holderInterfaces.get(viewType)
         return if(holderInterface != null) {
             holderInterface.makeViewHolder(inflater, parent)
         } else {
@@ -71,7 +71,7 @@ abstract class LazyOfAdapter(private val context: Context) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         holder.let {
             val item = getBindItem(position)
-            val holderInterface: LazyOfHolder<*,*>? = holderInterfaces.get(it.itemViewType)
+            val holderInterface: PieceHolder<*,*>? = holderInterfaces.get(it.itemViewType)
 
             when {
                 holderInterface != null -> item?.let {

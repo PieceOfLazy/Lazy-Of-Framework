@@ -1,4 +1,4 @@
-package piece.of.lazy.framework.library.base
+package piece.of.lazy.framework.library.piece
 
 import android.content.Context
 import android.support.annotation.IdRes
@@ -10,7 +10,7 @@ import android.view.ViewGroup
 /**
  * Created by piece.of.lazy
  */
-abstract class LazyOfView {
+abstract class PieceFrame {
     var view: View? = null
         private set(value) {
             field = value
@@ -27,8 +27,8 @@ abstract class LazyOfView {
     }
 
     open fun makeViewOnly(context: Context, parent: ViewGroup?): View? {
-        val view = onCreatePieceOfView(
-                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as? LayoutInflater, parent) ?: return null
+        val view = onCreateView(
+                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater, parent)
         bindView(context, view)
 
         return view
@@ -46,8 +46,8 @@ abstract class LazyOfView {
         }
     }
 
-    protected open fun onCreatePieceOfView(inflater: LayoutInflater?, parent: ViewGroup?): View? =
-            inflater?.inflate(onLayout(), parent, false)
+    protected open fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?): View =
+            inflater.inflate(onLayout(), parent, false)
 
     @LayoutRes
     protected abstract fun onLayout(): Int

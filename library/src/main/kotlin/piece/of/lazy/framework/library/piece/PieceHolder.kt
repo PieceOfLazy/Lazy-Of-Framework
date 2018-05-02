@@ -1,4 +1,4 @@
-package piece.of.lazy.framework.library.base
+package piece.of.lazy.framework.library.piece
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -12,7 +12,7 @@ import kotlin.reflect.KClass
  * Created by zpdl
  */
 
-abstract class LazyOfHolder<VH : RecyclerView.ViewHolder, VI : Any>(private val holderType: KClass<VH>, private val itemType: KClass<VI>): LazyOfViewItem<VI>() {
+abstract class PieceHolder<VH : RecyclerView.ViewHolder, VI : Any>(private val holderType: KClass<VH>, private val itemType: KClass<VI>): PieceView<VI>() {
 
     protected var holder: VH? = null
 
@@ -45,14 +45,14 @@ abstract class LazyOfHolder<VH : RecyclerView.ViewHolder, VI : Any>(private val 
     open fun isBindItem(item: Any?): Boolean = itemType.isInstance(item)
 
     fun getBindItem(holder: VH): VI? {
-        if(this@LazyOfHolder.holder == holder) {
+        if(this@PieceHolder.holder == holder) {
             return item
         }
 
         val parent:ViewParent? = holder.itemView.parent
         if(parent is RecyclerView) {
             val adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder> = parent.adapter
-            if(adapter is LazyOfAdapter) {
+            if(adapter is PieceAdapter) {
                 val item: Any? = adapter.getBindItem(holder.adapterPosition)
                 if(item != null) {
                     return castItem(item)
@@ -78,9 +78,6 @@ abstract class LazyOfHolder<VH : RecyclerView.ViewHolder, VI : Any>(private val 
         }
         return null
     }
-
-    private fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?):
-            View = inflater.inflate(onLayout(), parent, false)
 
     abstract protected fun onMakeViewHolder(view: View): VH
 
