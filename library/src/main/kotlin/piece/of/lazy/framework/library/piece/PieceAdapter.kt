@@ -14,22 +14,18 @@ import android.widget.TextView
  * Created by zpdl
  */
 
-abstract class PieceAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class PieceAdapter(protected val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    private val holderInterfaces: SparseArray<PieceHolder<*,*>> = SparseArray()
+    protected val holderInterfaces: SparseArray<PieceHolder<*,*>> = SparseArray()
 
     init {
         this.setHasStableIds(true)
-        this.onBindLazyOfHolder(holderInterfaces)
+        this.onBindHolder(holderInterfaces)
     }
 
-    protected abstract fun onBindLazyOfHolder(list: MutableList<PieceHolder<*,*>>)
-
-    abstract fun getBindItem(position: Int): Any?
-
-    private fun onBindLazyOfHolder(list: SparseArray<PieceHolder<*,*>>) {
+    private fun onBindHolder(list: SparseArray<PieceHolder<*,*>>) {
         val bindHolder = mutableListOf<PieceHolder<*,*>>()
-        onBindLazyOfHolder(bindHolder)
+        onBindHolder(bindHolder)
 
         for (holder in bindHolder) {
             list.put(holder.getViewType(), holder)
@@ -69,21 +65,23 @@ abstract class PieceAdapter(private val context: Context) : RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        holder.let {
-            val item = getBindItem(position)
-            val holderInterface: PieceHolder<*,*>? = holderInterfaces.get(it.itemViewType)
+        val item = getBindItem(position)
+        val holderInterface: PieceHolder<*,*>? = holderInterfaces.get(holder.itemViewType)
 
-            when {
-                holderInterface != null -> item?.let {
-                    holderInterface.bindViewHolder(context, holder, item, position)
-                }
-                holder.itemView is TextView -> {
-                    (holder.itemView as TextView).text = String.format("ERROR : position : %d", position)
-                }
-                else -> {
+        when {
+            holderInterface != null -> item?.let {
+                holderInterface.bindViewHolder(context, holder, item, position)
+            }
+            holder.itemView is TextView -> {
+                (holder.itemView as TextView).text = String.format("ERROR : position : %d", position)
+            }
+            else -> {
 
-                }
             }
         }
     }
+
+    protected abstract fun onBindHolder(list: MutableList<PieceHolder<*,*>>)
+
+    abstract fun getBindItem(position: Int): Any?
 }

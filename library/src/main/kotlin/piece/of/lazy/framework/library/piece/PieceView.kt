@@ -11,12 +11,10 @@ abstract class PieceView<I> : PieceFrame() {
             field = value
         }
 
-    open fun bindItem(c: Context?, item: I?) {
+    open fun bindItem(context: Context, item: I?) {
         this.item = item
-        c?.let {
-            onBindItem(it, this.item)
-        }
+        onBindItem(context, this.item)
     }
 
-    protected abstract fun onBindItem(c: Context, item: I?)
+    protected abstract fun onBindItem(context: Context, item: I?)
 }

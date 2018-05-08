@@ -12,28 +12,28 @@ import kotlin.reflect.KClass
  * Created by zpdl
  */
 
-abstract class PieceHolder<VH : RecyclerView.ViewHolder, VI : Any>(private val holderType: KClass<VH>, private val itemType: KClass<VI>): PieceView<VI>() {
+abstract class PieceHolder<H : RecyclerView.ViewHolder, I : Any>(private val holderClass: KClass<H>, private val itemClass: KClass<I>): PieceView<I>() {
 
-    protected var holder: VH? = null
+    protected var holder: H? = null
 
-    override fun onBindView(c: Context, v: View) {
+    final override fun onBindView(c: Context, v: View) {
         holder = onMakeViewHolder(v)
     }
 
-    override fun onBindItem(c: Context, item: VI?) {
+    final override fun onBindItem(c: Context, item: I?) {
         if(item != null) {
             holder?.let { onBindViewHolder(c, it, item, 0) }
         }
     }
 
     fun makeViewHolder(inflater: LayoutInflater, parent: ViewGroup?): RecyclerView.ViewHolder {
-        val view: View = onCreateView(inflater, parent)
-        return onMakeViewHolder(view)
+        holder = onMakeViewHolder(onCreateView(inflater, parent))
+        return holder as H
     }
 
     fun bindViewHolder(context: Context, viewHolder: RecyclerView.ViewHolder, item: Any, position: Int) {
-        val castHolder: VH? = castHolder(viewHolder)
-        val castItem: VI? = castItem(item)
+        val castHolder: H? = castHolder(viewHolder)
+        val castItem: I? = castItem(item)
 
         if(castHolder != null && castItem != null) {
             onBindViewHolder(context, castHolder, castItem, position)
@@ -42,13 +42,9 @@ abstract class PieceHolder<VH : RecyclerView.ViewHolder, VI : Any>(private val h
 
     open fun getViewType(): Int = onLayout()
 
-    open fun isBindItem(item: Any?): Boolean = itemType.isInstance(item)
+    open fun isBindItem(item: Any?): Boolean = itemClass.isInstance(item)
 
-    fun getBindItem(holder: VH): VI? {
-        if(this@PieceHolder.holder == holder) {
-            return item
-        }
-
+    fun getBindItem(holder: H): I? {
         val parent:ViewParent? = holder.itemView.parent
         if(parent is RecyclerView) {
             val adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder> = parent.adapter
@@ -60,27 +56,31 @@ abstract class PieceHolder<VH : RecyclerView.ViewHolder, VI : Any>(private val h
             }
         }
 
+        if(this@PieceHolder.holder == holder) {
+            return item
+        }
+
         return null
     }
 
-    private fun castHolder(viewHolder: RecyclerView.ViewHolder): VH? {
-        if(holderType.isInstance(viewHolder)) {
+    protected fun castHolder(viewHolder: RecyclerView.ViewHolder): H? {
+        if(holderClass.isInstance(viewHolder)) {
             @Suppress("UNCHECKED_CAST")
-            return viewHolder as VH
+            return viewHolder as H
         }
         return null
     }
 
-    private fun castItem(item: Any): VI? {
-        if(itemType.isInstance(item)) {
+    protected fun castItem(item: Any): I? {
+        if(itemClass.isInstance(item)) {
             @Suppress("UNCHECKED_CAST")
-            return item as VI
+            return item as I
         }
         return null
     }
 
-    abstract protected fun onMakeViewHolder(view: View): VH
+    abstract protected fun onMakeViewHolder(view: View): H
 
-    abstract protected fun onBindViewHolder(context: Context, holder: VH, item: VI, position: Int)
+    abstract protected fun onBindViewHolder(context: Context, holder: H, item: I, position: Int)
 
 }
