@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Lazy-Of-Framework.iml" filepath="$PROJECT_DIR$/Lazy-Of-Framework.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lazyframework/lazyframework.iml" filepath="$PROJECT_DIR$/lazyframework/lazyframework.iml" />
     </modules>
   </component>
 </project>
