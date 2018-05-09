@@ -20,9 +20,9 @@ abstract class PieceHolder<H : RecyclerView.ViewHolder, I : Any>(private val hol
         holder = onMakeViewHolder(v)
     }
 
-    final override fun onBindItem(c: Context, item: I?) {
+    final override fun onBindItem(context: Context, item: I?) {
         if(item != null) {
-            holder?.let { onBindViewHolder(c, it, item, 0) }
+            holder?.let { onBindViewHolder(context, it, item, 0) }
         }
     }
 

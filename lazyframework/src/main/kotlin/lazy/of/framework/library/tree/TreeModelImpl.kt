@@ -10,7 +10,7 @@ class TreeModelImpl(isVisible: Boolean = true, isExpansion: Boolean = true): Tre
         set(value) {
             if (field != value) {
                 field = value
-                listener?.onChangedVisible(this@TreeModelImpl)
+                callback?.onChangedVisible(this@TreeModelImpl)
             }
         }
 
@@ -18,15 +18,15 @@ class TreeModelImpl(isVisible: Boolean = true, isExpansion: Boolean = true): Tre
         set(value) {
             if (field != value) {
                 field = value
-                listener?.onChangedExpansion(this@TreeModelImpl)
+                callback?.onChangedExpansion(this@TreeModelImpl)
             }
         }
 
-    private var listener: TreeModel.OnModelCallBack? = null
+    private var callback: TreeModel.OnModelCallBack? = null
 
-    override fun setOnModelCallBack(l: TreeModel.OnModelCallBack) {
-        listener = l
+    override fun setOnModelCallBack(callback: TreeModel.OnModelCallBack) {
+        this.callback = callback
     }
 
-    override fun getNode(): TreeNode<*>? = listener?.onGetTreeNode()
+    override fun getNode(): TreeNode<*>? = callback?.onGetTreeNode()
 }

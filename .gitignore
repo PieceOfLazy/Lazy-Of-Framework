@@ -53,3 +53,8 @@ google-services.json
 freeline.py
 freeline/
 freeline_project_description.json
+/.idea/
+app/libs/
+lazyframework/libs/
+lazyframework/src/main/java/
+lazyframework/src/main/res/drawable/

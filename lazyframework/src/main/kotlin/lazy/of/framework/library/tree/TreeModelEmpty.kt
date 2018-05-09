@@ -14,11 +14,11 @@ class TreeModelEmpty: TreeModel {
         get() = true
         set(value) {}
 
-    private var listener: TreeModel.OnModelCallBack? = null
+    private var callback: TreeModel.OnModelCallBack? = null
 
-    override fun setOnModelCallBack(l: TreeModel.OnModelCallBack) {
-        listener = l
+    override fun setOnModelCallBack(callback: TreeModel.OnModelCallBack) {
+        this.callback = callback
     }
 
-    override fun getNode(): TreeNode<*>? = listener?.onGetTreeNode()
+    override fun getNode(): TreeNode<*>? = callback?.onGetTreeNode()
 }
