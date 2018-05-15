@@ -1,11 +1,13 @@
-package lazy.of.framework.library.piece
+package lazy.of.framework.library.panel
 
 import android.content.Context
+import android.view.View
 
 /**
  * Created by piece.of.lazy
  */
-abstract class PieceView<I> : PieceFrame() {
+abstract class PanelLCView<I>: PanelLC() {
+
     var item: I? = null
         private set(value) {
             field = value

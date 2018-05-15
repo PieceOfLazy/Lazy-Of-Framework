@@ -1,4 +1,4 @@
-package lazy.of.framwork.library;
+package lazy.of.framework.library;
 
 import org.junit.Test;
 

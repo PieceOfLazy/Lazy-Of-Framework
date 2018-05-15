@@ -1,4 +1,4 @@
-package piece.of.lazy.framework.library;
+package lazy.of.framework.library;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,4 +1,4 @@
-package lazy.of.framework.library.piece
+package lazy.of.framework.library.panel
 
 import android.content.Context
 import android.graphics.Color
@@ -14,17 +14,17 @@ import android.widget.TextView
  * Created by zpdl
  */
 
-abstract class PieceAdapter(protected val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class PanelAdapter(protected val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    protected val holderInterfaces: SparseArray<PieceHolder<*,*>> = SparseArray()
+    protected val holderInterfaces: SparseArray<PanelHolder<*,*>> = SparseArray()
 
     init {
         this.setHasStableIds(true)
         this.onBindHolder(holderInterfaces)
     }
 
-    private fun onBindHolder(list: SparseArray<PieceHolder<*,*>>) {
-        val bindHolder = mutableListOf<PieceHolder<*,*>>()
+    private fun onBindHolder(list: SparseArray<PanelHolder<*,*>>) {
+        val bindHolder = mutableListOf<PanelHolder<*,*>>()
         onBindHolder(bindHolder)
 
         for (holder in bindHolder) {
@@ -45,7 +45,7 @@ abstract class PieceAdapter(protected val context: Context) : RecyclerView.Adapt
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val holderInterface: PieceHolder<*,*>? = holderInterfaces.get(viewType)
+        val holderInterface: PanelHolder<*,*>? = holderInterfaces.get(viewType)
         return if(holderInterface != null) {
             holderInterface.makeViewHolder(inflater, parent)
         } else {
@@ -66,7 +66,7 @@ abstract class PieceAdapter(protected val context: Context) : RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getBindItem(position)
-        val holderInterface: PieceHolder<*,*>? = holderInterfaces.get(holder.itemViewType)
+        val holderInterface: PanelHolder<*,*>? = holderInterfaces.get(holder.itemViewType)
 
         when {
             holderInterface != null -> item?.let {
@@ -81,7 +81,7 @@ abstract class PieceAdapter(protected val context: Context) : RecyclerView.Adapt
         }
     }
 
-    protected abstract fun onBindHolder(list: MutableList<PieceHolder<*,*>>)
+    protected abstract fun onBindHolder(list: MutableList<PanelHolder<*,*>>)
 
     abstract fun getBindItem(position: Int): Any?
 }

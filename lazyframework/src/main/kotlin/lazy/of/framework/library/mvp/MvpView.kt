@@ -1,9 +1,9 @@
 package lazy.of.framework.library.mvp
 
 /**
- * Created by piece.of.lazy
+ * @author lazy.of.zpdl
  */
-interface View<in P> {
+interface MvpView<P> {
     /**
      * Sets presenter for view
      * @param presenter

@@ -2,13 +2,13 @@ package lazy.of.framework.library.tree
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import lazy.of.framework.library.piece.PieceAdapter
+import lazy.of.framework.library.panel.PanelAdapter
 
 /**
  * Created by zpdl
  */
 
-abstract class TreeAdapter(context: Context) : PieceAdapter(context), TreeNotify {
+abstract class TreeAdapter(context: Context) : PanelAdapter(context), TreeNotify {
 
     private val root by lazy {
         TreeRoot(this)

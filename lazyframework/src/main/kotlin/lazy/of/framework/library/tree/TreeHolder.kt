@@ -2,18 +2,14 @@ package lazy.of.framework.library.tree
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.ViewParent
-import lazy.of.framework.library.piece.PieceHolder
+import lazy.of.framework.library.panel.PanelHolder
 import kotlin.reflect.KClass
 
 /**
  * Created by zpdl
  */
 
-abstract class TreeHolder<H : RecyclerView.ViewHolder, I : Any>(private val holderClass: KClass<H>, private val itemClass: KClass<I>): PieceHolder<H, I>(holderClass, itemClass) {
+abstract class TreeHolder<H : RecyclerView.ViewHolder, I : Any>(private val holderClass: KClass<H>, private val itemClass: KClass<I>): PanelHolder<H, I>(holderClass, itemClass) {
 
     fun bindViewHolder(context: Context?, holder: RecyclerView.ViewHolder?, item: Any, treePosition: TreePosition) {
         if (context != null && holder != null) {

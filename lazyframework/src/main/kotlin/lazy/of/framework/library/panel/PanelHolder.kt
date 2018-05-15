@@ -1,4 +1,4 @@
-package lazy.of.framework.library.piece
+package lazy.of.framework.library.panel
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -12,12 +12,12 @@ import kotlin.reflect.KClass
  * Created by zpdl
  */
 
-abstract class PieceHolder<H : RecyclerView.ViewHolder, I : Any>(private val holderClass: KClass<H>, private val itemClass: KClass<I>): PieceView<I>() {
+abstract class PanelHolder<H : RecyclerView.ViewHolder, I : Any>(private val holderClass: KClass<H>, private val itemClass: KClass<I>): PanelView<I>() {
 
     protected var holder: H? = null
 
-    final override fun onBindView(c: Context, v: View) {
-        holder = onMakeViewHolder(v)
+    final override fun onBindView(context: Context, view: View) {
+        holder = onMakeViewHolder(view)
     }
 
     final override fun onBindItem(context: Context, item: I?) {
@@ -48,7 +48,7 @@ abstract class PieceHolder<H : RecyclerView.ViewHolder, I : Any>(private val hol
         val parent:ViewParent? = holder.itemView.parent
         if(parent is RecyclerView) {
             val adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder> = parent.adapter
-            if(adapter is PieceAdapter) {
+            if(adapter is PanelAdapter) {
                 val item: Any? = adapter.getBindItem(holder.adapterPosition)
                 if(item != null) {
                     return castItem(item)
@@ -56,7 +56,7 @@ abstract class PieceHolder<H : RecyclerView.ViewHolder, I : Any>(private val hol
             }
         }
 
-        if(this@PieceHolder.holder == holder) {
+        if(this@PanelHolder.holder == holder) {
             return item
         }
 

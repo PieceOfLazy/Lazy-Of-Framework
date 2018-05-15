@@ -1,4 +1,4 @@
-package lazy.of.framework.library.piece
+package lazy.of.framework.library.panel
 
 import android.content.Context
 import android.support.annotation.IdRes
@@ -10,7 +10,7 @@ import android.view.ViewGroup
 /**
  * Created by piece.of.lazy
  */
-abstract class PieceFrame {
+abstract class PanelBase {
     var view: View? = null
         private set(value) {
             field = value
@@ -52,5 +52,5 @@ abstract class PieceFrame {
     @LayoutRes
     protected abstract fun onLayout(): Int
 
-    protected abstract fun onBindView(c: Context, v: View)
+    protected abstract fun onBindView(context: Context, view: View)
 }

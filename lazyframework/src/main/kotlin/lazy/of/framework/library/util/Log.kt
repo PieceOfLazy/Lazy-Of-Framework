@@ -6,7 +6,7 @@ package lazy.of.framework.library.util
 open class Log constructor(private val tag: String?)   {
 
     enum class LEVEL {
-        NOT, VERBOSE, DEBUG, INFO, WARN, ERROR
+        VERBOSE, DEBUG, ERROR
     }
 
     companion object {
@@ -20,17 +20,7 @@ open class Log constructor(private val tag: String?)   {
 
         fun d(tag: String, msg: String) {
             if (LEVEL.DEBUG.ordinal >= level.ordinal)
-                android.util.Log.d("$prefix$tag", msg)
-        }
-
-        fun i(tag: String, msg: String) {
-            if (LEVEL.INFO.ordinal >= level.ordinal)
                 android.util.Log.i("$prefix$tag", msg)
-        }
-
-        fun w(tag: String, msg: String) {
-            if (LEVEL.WARN.ordinal >= level.ordinal)
-                android.util.Log.w("$prefix$tag", msg)
         }
 
         fun e(tag: String, msg: String) {
@@ -47,16 +37,6 @@ open class Log constructor(private val tag: String?)   {
     fun d(msg: String) {
         if (LEVEL.DEBUG.ordinal >= level.ordinal)
             Log.d("$tag", msg)
-    }
-
-    fun i(msg: String) {
-        if (LEVEL.INFO.ordinal >= level.ordinal)
-            Log.i("$tag", msg)
-    }
-
-    fun w(msg: String) {
-        if (LEVEL.WARN.ordinal >= level.ordinal)
-            Log.w("$tag", msg)
     }
 
     fun e(msg: String) {
