@@ -14,12 +14,7 @@ open class MvpContract<V: MvpView<P>, P: MvpPresenter<V>> constructor(
     fun attach(activity: AppCompatActivity, parent: ViewGroup) {
         detach()
 
-        if(activity is MvpContractListener) {
-            presenter.onViewAttach(view, activity)
-        } else {
-            presenter.onViewAttach(view, null)
-        }
-
+        presenter.onViewAttach(view)
         if(view is PanelBase) {
             view.makeView(activity, parent)
         }

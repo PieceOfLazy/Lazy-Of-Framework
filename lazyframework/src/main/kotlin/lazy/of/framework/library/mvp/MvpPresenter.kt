@@ -5,7 +5,7 @@ package lazy.of.framework.library.mvp
  */
 interface MvpPresenter<V> {
 
-    fun onViewAttach(view: V, listener: MvpContractListener?)
+    fun onViewAttach(view: V)
 
     fun onViewDetach()
 
