@@ -3,7 +3,7 @@ package lazy.of.framework.library.mvp
 /**
  * @author lazy.of.zpdl
  */
-interface MvpPresenter<V> {
+interface MvpPresenter<in V> {
 
     fun onViewAttach(view: V)
 

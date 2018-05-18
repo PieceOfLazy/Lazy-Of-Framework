@@ -3,7 +3,7 @@ package lazy.of.framework.library.mvp
 /**
  * @author lazy.of.zpdl
  */
-interface MvpView<P> {
+interface MvpView<in P> {
     /**
      * Sets presenter for view
      * @param presenter

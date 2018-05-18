@@ -1,7 +1,7 @@
 package lazy.of.framework.library.util
 
 /**
- * Created by piece.of.lazy
+ * @author lazy.of.zpdl
  */
 open class Log constructor(private val tag: String?)   {
 

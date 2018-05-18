@@ -1,5 +1,7 @@
 package lazy.of.framework.library.mvp
 
+import android.content.res.Configuration
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
 import lazy.of.framework.library.panel.PanelBase
@@ -11,20 +13,37 @@ open class MvpContract<V: MvpView<P>, P: MvpPresenter<V>> constructor(
         val view: V,
         val presenter: P) {
 
-    fun attach(activity: AppCompatActivity, parent: ViewGroup) {
-        detach()
+    protected var contractLifeCycle = false
 
-        presenter.onViewAttach(view)
-        if(view is PanelBase) {
-            view.makeView(activity, parent)
+    fun attach(activity: AppCompatActivity, parent: ViewGroup) {
+
+        if(view is Fragment) {
+            contractLifeCycle = false
+
+            activity.supportFragmentManager
+                    .beginTransaction()
+                    .replace(parent.id, view, view::class.simpleName)
+                    .commit()
+        } else {
+            contractLifeCycle = true
+
+            if(view is PanelBase) {
+                view.makeView(activity, parent)
+            }
         }
     }
 
     fun detach() {
-        this.presenter.onViewDetach()
+        if(contractLifeCycle)
+            presenter.onViewDetach()
     }
 
     fun launch() {
-        this.presenter.onLaunch()
+        if(contractLifeCycle)
+            presenter.onLaunch()
+    }
+
+    fun configurationChanged(newConfig: Configuration?) {
+
     }
 }
