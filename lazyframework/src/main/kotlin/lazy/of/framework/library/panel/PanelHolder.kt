@@ -79,8 +79,8 @@ abstract class PanelHolder<H : RecyclerView.ViewHolder, I : Any>(private val hol
         return null
     }
 
-    abstract protected fun onMakeViewHolder(view: View): H
+    protected abstract fun onMakeViewHolder(view: View): H
 
-    abstract protected fun onBindViewHolder(context: Context, holder: H, item: I, position: Int)
+    protected abstract fun onBindViewHolder(context: Context, holder: H, item: I, position: Int)
 
 }

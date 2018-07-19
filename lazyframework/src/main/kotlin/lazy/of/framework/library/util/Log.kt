@@ -13,12 +13,12 @@ open class Log constructor(private val tag: String?)   {
         var level: LEVEL = LEVEL.ERROR
         var prefix = ""
 
-        fun v(tag: String, msg: String) {
+        fun d(tag: String, msg: String) {
             if (LEVEL.VERBOSE.ordinal >= level.ordinal)
-                android.util.Log.v("$prefix$tag", msg)
+                android.util.Log.d("$prefix$tag", msg)
         }
 
-        fun d(tag: String, msg: String) {
+        fun i(tag: String, msg: String) {
             if (LEVEL.DEBUG.ordinal >= level.ordinal)
                 android.util.Log.i("$prefix$tag", msg)
         }
@@ -29,14 +29,14 @@ open class Log constructor(private val tag: String?)   {
         }
     }
 
-    fun v(msg: String) {
+    fun d(msg: String) {
         if (LEVEL.VERBOSE.ordinal >= level.ordinal)
-            Log.v("$tag", msg)
+            Log.d("$tag", msg)
     }
 
-    fun d(msg: String) {
+    fun i(msg: String) {
         if (LEVEL.DEBUG.ordinal >= level.ordinal)
-            Log.d("$tag", msg)
+            Log.i("$tag", msg)
     }
 
     fun e(msg: String) {
